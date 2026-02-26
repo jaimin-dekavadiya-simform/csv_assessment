@@ -20,11 +20,15 @@ async function handleFileSubmit(e, app) {
 
     const file = app.fileInputElement.files[0];
     const text = await loadCsv(file);
-    const data = parseCsv(text);
-    app.state.data = data;
-    console.log(data);
+    const { data, mappedHeadings } = parseCsv(text);
 
+    app.state.data = data;
+    app.state.headings = mappedHeadings;
+    app.state.filteredData = data;
+    app.state.filteredHeadings = mappedHeadings;
     app.setLoader(false);
+    app.loaded = true;
+    app.render();
   } catch (e) {
     app.handleError(e);
     app.setLoader(false);

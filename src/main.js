@@ -8,6 +8,8 @@ class App {
     this.loadDom();
     this.attachHandlers();
     this.setLoader(false);
+    this.render();
+    this.loaded = false;
   }
   attachHandlers() {
     this.submitBtnElement.addEventListener("click", (e) => {
@@ -23,6 +25,10 @@ class App {
       this.loaderElement.getElementsByClassName("submit-btn")[0];
     this.loadingIconElement =
       document.getElementsByClassName("loading-icon")[0];
+    this.dataContainerElement =
+      document.getElementsByClassName("data-container")[0];
+    this.dataTableElement =
+      this.dataContainerElement.getElementsByClassName("data-table")[0];
   }
   handleError(e) {
     console.log(e);
@@ -34,6 +40,36 @@ class App {
       this.loadingIconElement.style.display = "none";
     }
   }
+  render() {
+    this.dataTableElement.innerHTML = "";
+    if (!this.loaded) {
+      this.dataTableElement.innerHTML = "<p>Please Load the Data</p>";
+      return;
+    }
+
+    this.applyFilters();
+
+    const tableHeaderElement = document.createElement("tr");
+    tableHeaderElement.className = "table-header";
+
+    for (const heading of this.state.filteredHeadings) {
+      const headingEntryElement = document.createElement("th");
+      headingEntryElement.innerHTML = heading.value;
+      tableHeaderElement.appendChild(headingEntryElement);
+    }
+    this.dataTableElement.appendChild(tableHeaderElement);
+
+    for (const dataRow of this.state.filteredData) {
+      const tableRowElemnet = document.createElement("tr");
+      for (const heading of this.state.headings) {
+        const dataEntryElement = document.createElement("td");
+        dataEntryElement.innerHTML = dataRow[heading.value];
+        tableRowElemnet.appendChild(dataEntryElement);
+      }
+      this.dataTableElement.appendChild(tableRowElemnet);
+    }
+  }
+  applyFilters() {}
 }
 
 const app = new App();

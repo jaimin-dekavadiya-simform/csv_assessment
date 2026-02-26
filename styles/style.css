@@ -39,3 +39,17 @@
     transform: rotate(360deg);
   }
 }
+
+.data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.data-table {
+  overflow: scroll;
+}
+.table-data td {
+}
+.table-options {
+}

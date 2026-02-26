@@ -9,10 +9,8 @@ export function parseCsv(text) {
   const headings = rows[0].split(",");
   const dataRows = rows.slice(1);
 
-  const mappedHeadings = inferColumnTypes(headings, dataRows.slice(0, 50));
-
+  const mappedHeadings = inferColumnTypes(headings, dataRows.slice(0, 4));
   console.log(mappedHeadings);
-
   const dataEntries = dataRows.map((row, index) => {
     const dataRow = row.split(",");
     if (dataRow.length !== headings.length) {
@@ -31,12 +29,12 @@ export function parseCsv(text) {
           typedElement = new Date(element);
           break;
       }
-      return [mappedHeadings[index].value, typedElements];
+      return [mappedHeadings[index].value, typedElement];
     });
   });
   const data = dataEntries.map((entry) => Object.fromEntries(entry));
-
-  return data;
+  console.log(mappedHeadings);
+  return { data, mappedHeadings };
 }
 
 function inferColumnTypes(headings, dataRows) {
