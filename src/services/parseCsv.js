@@ -5,16 +5,19 @@ export function parseCsv(text) {
     throw new AppError("Can not parser Empty text", 200);
   }
 
-  const rows = text.split("\n");
+  const rows = text.split(/\r?\n/);
   const headings = rows[0].split(",");
   const dataRows = rows.slice(1);
-  const data = dataRows.map((row) => {
-    return Object.fromEntries(
-      row.split(",").map((element, index) => {
-        return [headings[index], element];
-      }),
-    );
+  const dataEntries = dataRows.map((row, index) => {
+    const dataRow = row.split(",");
+    if (dataRow.length !== headings.length) {
+      throw new AppError("Column mismatch at row:" + index, 202);
+    }
+    return dataRow.map((element, index) => {
+      return [headings[index], element];
+    });
   });
+  const data = dataEntries.map((entry) => Object.fromEntries(entry));
 
   return data;
 }

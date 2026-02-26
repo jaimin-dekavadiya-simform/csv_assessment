@@ -22,6 +22,7 @@ async function handleFileSubmit(e, app) {
     const text = await loadCsv(file);
     const data = parseCsv(text);
     app.state.data = data;
+    console.log(data);
 
     app.setLoader(false);
   } catch (e) {
