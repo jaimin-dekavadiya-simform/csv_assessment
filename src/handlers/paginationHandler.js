@@ -28,4 +28,13 @@ function handlePageChange(app, type) {
   setPaginationParameters(app.state, pageNumber, undefined);
   app.render();
 }
-export { changeOffsetHandler, handlePageChange };
+
+function handlePageNumberClick(app, e) {
+  const pageNumber = Number(e.target.closest(".page-number-btn")?.innerHTML);
+  if (!pageNumber) {
+    return;
+  }
+  setPaginationParameters(app.state, pageNumber, undefined);
+  app.render();
+}
+export { changeOffsetHandler, handlePageChange, handlePageNumberClick };
