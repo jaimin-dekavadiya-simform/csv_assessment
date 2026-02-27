@@ -22,7 +22,29 @@
         <button class="submit-btn" type="submit">Upload</button>
       </div>
       <div class="data-container">
-        <div class="data-options"></div>
+        <div class="data-options">
+          <select name="page-offset" id="page-offset" class="page-offset">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+          </select>
+          <button class="prev-page-btn">Previous</button>
+          <span class="page-number">1</span>
+          <button class="next-page-btn">Next</button>
+
+          <div class="page-numbers">
+            <button class="page-number-btn">1</button>
+
+            <span class="page-number-dots">...</span>
+            <button class="page-number-btn">2</button>
+            <button class="page-number-btn">3</button>
+            <button class="page-number-btn">4</button>
+            <span class="page-number-dots">...</span>
+            <button class="page-number-btn">5</button>
+          </div>
+        </div>
         <table class="data-table"></table>
       </div>
     </main>

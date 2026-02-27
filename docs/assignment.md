@@ -6,12 +6,12 @@ Build a **pure JavaScript web application** that loads a large CSV file (1000+ r
 
 This assignment evaluates:
 
-* JavaScript fundamentals
-* Array & Object methods
-* Data transformation
-* DOM manipulation
-* Event handling
-* Code organization
+- JavaScript fundamentals
+- Array & Object methods
+- Data transformation
+- DOM manipulation
+- Event handling
+- Code organization
 
 ---
 
@@ -30,51 +30,51 @@ The application should:
 
 ### 1. CSV Parsing
 
-* Accept a CSV file (preloaded or via file upload)
-* Convert CSV data into an array of JavaScript objects
-* Handle:
+- Accept a CSV file (preloaded or via file upload)
+- Convert CSV data into an array of JavaScript objects
+- Handle:
+  - Header row
+  - Empty values
+  - Numeric vs string data
 
-  * Header row
-  * Empty values
-  * Numeric vs string data
-* External libraries are **not allowed**
+- External libraries are **not allowed**
 
 ---
 
 ### 2. Data Display
 
-* Render data in an HTML table
-* Generate table headers dynamically
-* Show loading indicator during parsing
+- Render data in an HTML table
+- Generate table headers dynamically
+- Show loading indicator during parsing
 
 ---
 
 ### 3. Pagination
 
-* Default page size: 10 or 20 records
-* Controls:
+- Default page size: 10 or 20 records
+- Controls:
+  - Next / Previous
+  - Page number
+  - Page size selector (10 / 20 / 50)
 
-  * Next / Previous
-  * Page number
-  * Page size selector (10 / 20 / 50)
-* Pagination must work after filtering & sorting
+- Pagination must work after filtering & sorting
 
 ---
 
 ### 4. Sorting
 
-* Clickable column headers
-* Toggle ascending / descending
-* Support numeric and string sorting
-* Show visual indicator (↑ ↓)
+- Clickable column headers
+- Toggle ascending / descending
+- Support numeric and string sorting
+- Show visual indicator (↑ ↓)
 
 ---
 
 ### 5. Filtering
 
-* Global search across all columns
-* Case-insensitive, partial matching
-* Works with pagination & sorting
+- Global search across all columns
+- Case-insensitive, partial matching
+- Works with pagination & sorting
 
 ---
 
@@ -95,7 +95,7 @@ The application should:
 
 ## Technical Constraints
 
-* Vanilla JavaScript (ES6+)
-* No frameworks or libraries
-* HTML + CSS only
-* Clean, modular, readable code
+- Vanilla JavaScript (ES6+)
+- No frameworks or libraries
+- HTML + CSS only
+- Clean, modular, readable code
