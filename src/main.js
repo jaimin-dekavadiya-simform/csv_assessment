@@ -1,12 +1,19 @@
 import { handleFileSubmit } from "./handlers/fileSubmitHandler.js";
 import AppError from "./error/appError.js";
 import { paginate, setPaginationParameters } from "./services/paginate.js";
-import { changeOffsetHandler } from "./handlers/paginationHandler.js";
+import {
+  changeOffsetHandler,
+  handlePageChange,
+} from "./handlers/paginationHandler.js";
 
 class App {
   constructor() {
     this.state = {
-      pagination: {},
+      pagination: {
+        pageNumber: 1,
+        offset: 50,
+        persistIndex: 0,
+      },
     };
     this.file = null;
     this.loadDom();
@@ -23,6 +30,16 @@ class App {
       .getElementsByClassName("page-offset")[0]
       .addEventListener("change", (e) => {
         changeOffsetHandler(this, e);
+      });
+    this.dataOptionElement
+      .getElementsByClassName("next-page-btn")[0]
+      .addEventListener("click", () => {
+        handlePageChange(this, "next");
+      });
+    this.dataOptionElement
+      .getElementsByClassName("prev-page-btn")[0]
+      .addEventListener("click", () => {
+        handlePageChange(this, "prev");
       });
   }
 
@@ -68,7 +85,7 @@ class App {
     }
     this.dataTableElement.appendChild(tableHeaderElement);
 
-    for (const dataRow of this.state.filteredData) {
+    for (const dataRow of this.state.paginatedData) {
       const tableRowElemnet = document.createElement("tr");
       for (const heading of this.state.headings) {
         const dataEntryElement = document.createElement("td");
