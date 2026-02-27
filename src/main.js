@@ -124,7 +124,7 @@ class App {
         );
       }
     } else {
-      if (pageNumber <= 3) {
+      if (pageNumber < 3) {
         for (let i = 0; i < 3; i++) {
           this.pageNumbersElement.appendChild(
             createPageButton(i + 1, i + 1 === pageNumber),
@@ -132,7 +132,7 @@ class App {
         }
         this.pageNumbersElement.appendChild(createDots());
         this.pageNumbersElement.appendChild(createPageButton(pageNumbers));
-      } else if (pageNumbers - pageNumber < 3) {
+      } else if (pageNumbers - pageNumber < 2) {
         this.pageNumbersElement.appendChild(createPageButton(1));
         this.pageNumbersElement.appendChild(createDots());
         for (let i = 2; i >= 0; i--) {
