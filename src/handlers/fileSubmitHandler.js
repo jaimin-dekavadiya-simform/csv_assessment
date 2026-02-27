@@ -2,7 +2,7 @@ import App from "../main.js";
 import AppError from "../error/appError.js";
 import { loadCsv } from "../services/loadCsv.js";
 import { parseCsv } from "../services/parseCsv.js";
-
+import { setPaginationParameters } from "../services/paginate.js";
 // async function sleep(ms) {
 //   return new Promise((resolve) => {
 //     setTimeout(() => {
@@ -28,6 +28,7 @@ async function handleFileSubmit(e, app) {
     app.state.filteredHeadings = mappedHeadings;
     app.setLoader(false);
     app.loaded = true;
+    setPaginationParameters(app.state, 1, 50);
     app.render();
   } catch (e) {
     app.handleError(e);

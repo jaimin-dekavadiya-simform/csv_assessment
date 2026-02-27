@@ -22,7 +22,15 @@
         <button class="submit-btn" type="submit">Upload</button>
       </div>
       <div class="data-container">
-        <div class="data-options"></div>
+        <div class="data-options">
+          <select name="page-offset" id="page-offset" class="page-offset">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50" selected>50</option>
+            <option value="100">100</option>
+            <option value="200">200</option>
+          </select>
+        </div>
         <table class="data-table"></table>
       </div>
     </main>

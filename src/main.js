@@ -1,9 +1,13 @@
 import { handleFileSubmit } from "./handlers/fileSubmitHandler.js";
 import AppError from "./error/appError.js";
+import { paginate, setPaginationParameters } from "./services/paginate.js";
+import { changeOffsetHandler } from "./handlers/paginationHandler.js";
 
 class App {
   constructor() {
-    this.state = {};
+    this.state = {
+      pagination: {},
+    };
     this.file = null;
     this.loadDom();
     this.attachHandlers();
@@ -15,6 +19,11 @@ class App {
     this.submitBtnElement.addEventListener("click", (e) => {
       handleFileSubmit(e, this);
     });
+    this.dataOptionElement
+      .getElementsByClassName("page-offset")[0]
+      .addEventListener("change", (e) => {
+        changeOffsetHandler(this, e);
+      });
   }
 
   loadDom() {
@@ -25,10 +34,10 @@ class App {
       this.loaderElement.getElementsByClassName("submit-btn")[0];
     this.loadingIconElement =
       document.getElementsByClassName("loading-icon")[0];
-    this.dataContainerElement =
-      document.getElementsByClassName("data-container")[0];
-    this.dataTableElement =
-      this.dataContainerElement.getElementsByClassName("data-table")[0];
+    this.dataOptionElement = document.getElementsByClassName("data-options")[0];
+    this.dataTableElement = document
+      .getElementsByClassName("data-container")[0]
+      .getElementsByClassName("data-table")[0];
   }
   handleError(e) {
     console.log(e);
@@ -69,7 +78,10 @@ class App {
       this.dataTableElement.appendChild(tableRowElemnet);
     }
   }
-  applyFilters() {}
+  applyFilters() {
+    this.state.filteredData = this.state.data;
+    paginate(this.state);
+  }
 }
 
 const app = new App();
