@@ -13,6 +13,7 @@ import {
   createPageButton,
   createTableHeader,
 } from "./utils/domHelpers.js";
+import { handleSortButtonClick } from "./handlers/sortingButtonHandler.js";
 class App {
   constructor() {
     this.state = {
@@ -54,6 +55,15 @@ class App {
         handlePageNumberClick(this, e);
       });
   }
+  attachDataHandlers() {
+    this.dataTableHeaderElement.addEventListener("click", (e) => {
+      handleSortButtonClick(this, e);
+    });
+  }
+  loadDataDom() {
+    this.dataTableHeaderElement =
+      this.dataTableElement.getElementsByClassName("table-header")[0];
+  }
 
   loadDom() {
     this.loaderElement = document.getElementsByClassName("file-loader")[0];
@@ -88,29 +98,33 @@ class App {
     }
     this.renderPageNumbers();
     this.applyFilters();
-
-    const tableHeaderElement = createTableHeader();
-
-    for (const heading of this.state.filteredHeadings) {
-      tableHeaderElement.appendChild(createHeaderentry(heading.value));
-    }
-
-    this.dataTableElement.appendChild(tableHeaderElement);
-
-    for (const dataRow of this.state.paginatedData) {
-      const tableRowElemnet = document.createElement("tr");
-
-      for (const heading of this.state.headings) {
-        tableRowElemnet.appendChild(createDataEntry(dataRow[heading.value]));
-      }
-
-      this.dataTableElement.appendChild(tableRowElemnet);
-    }
+    this.renderHeaders();
+    this.renderData();
+    this.loadDataDom();
+    this.attachDataHandlers();
   }
 
   applyFilters() {
     this.state.filteredData = this.state.data;
     paginate(this.state);
+  }
+
+  renderHeaders() {
+    const tableHeaderElement = createTableHeader();
+    for (const heading of this.state.filteredHeadings) {
+      tableHeaderElement.appendChild(createHeaderentry(heading.value));
+    }
+    this.dataTableElement.appendChild(tableHeaderElement);
+  }
+
+  renderData() {
+    for (const dataRow of this.state.paginatedData) {
+      const tableRowElemnet = document.createElement("tr");
+      for (const heading of this.state.headings) {
+        tableRowElemnet.appendChild(createDataEntry(dataRow[heading.value]));
+      }
+      this.dataTableElement.appendChild(tableRowElemnet);
+    }
   }
 
   renderPageNumbers() {

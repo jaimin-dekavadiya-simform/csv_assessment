@@ -58,5 +58,23 @@ th {
   border-collapse: collapse;
   text-align: center;
 }
-.table-options {
+.header-cell-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+.sort-buttons {
+  height: 3px;
+}
+.sort-button-container {
+  height: 20px;
+}
+.sort-up-button-container,
+.sort-down-button-container {
+  height: 10px;
+  overflow: hidden;
+}
+.sort-down-button {
+  transform: translateY(-9px);
 }
