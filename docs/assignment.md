@@ -87,7 +87,7 @@ The application should:
 5. Export filtered/selected data (CSV or JSON)
 6. Summary statistics (counts, averages)
 7. Persist UI state using `localStorage`
-8. Error handling for invalid CSV
+8. Error handling for invalid CSV in
 9. Reset filters & sorting
 10. Highlight searched text in results
 

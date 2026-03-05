@@ -81,3 +81,6 @@ th {
 .highlighted-text {
   background-color: yellow;
 }
+.error {
+  color: red;
+}
