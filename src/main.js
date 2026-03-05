@@ -14,6 +14,7 @@ import {
   createTableHeader,
 } from "./utils/domHelpers.js";
 import { handleSortButtonClick } from "./handlers/sortingButtonHandler.js";
+import { sort } from "./services/sort.js";
 class App {
   constructor() {
     this.state = {
@@ -21,6 +22,10 @@ class App {
         pageNumber: 1,
         offset: 50,
         persistIndex: 0,
+      },
+      sort: {
+        sortBy: undefined,
+        sortType: "DEFAULT",
       },
     };
     this.file = null;
@@ -106,13 +111,15 @@ class App {
 
   applyFilters() {
     this.state.filteredData = this.state.data;
+    this.state.sortedData = this.state.data;
+    sort(this);
     paginate(this.state);
   }
 
   renderHeaders() {
     const tableHeaderElement = createTableHeader();
     for (const heading of this.state.filteredHeadings) {
-      tableHeaderElement.appendChild(createHeaderentry(heading.value));
+      tableHeaderElement.appendChild(createHeaderentry(this, heading.value));
     }
     this.dataTableElement.appendChild(tableHeaderElement);
   }

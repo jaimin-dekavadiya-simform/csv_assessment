@@ -68,13 +68,13 @@ th {
   height: 3px;
 }
 .sort-button-container {
-  height: 20px;
+  height: 30px;
 }
 .sort-up-button-container,
 .sort-down-button-container {
-  height: 10px;
+  height: 15px;
   overflow: hidden;
 }
 .sort-down-button {
-  transform: translateY(-9px);
+  transform: translateY();
 }

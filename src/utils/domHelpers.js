@@ -20,12 +20,12 @@ function createTableHeader() {
   tableHeaderElement.className = "table-header";
   return tableHeaderElement;
 }
-function createHeaderentry(value) {
+function createHeaderentry(app, value) {
   const headingEntryElement = document.createElement("th");
   const headingContainer = document.createElement("div");
   headingContainer.className = "header-cell-container";
 
-  const sortingButtons = createSortingButtons(value);
+  const sortingButtons = createSortingButtons(app, value);
   const headerText = document.createElement("span");
   headerText.innerHTML = value;
   headingContainer.appendChild(headerText);
@@ -41,23 +41,34 @@ function createDataEntry(value) {
   return dataEntryElement;
 }
 
-function createSortingButtons(heading) {
+function createSortingButtons(app, heading) {
   const sortingButtonsElement = document.createElement("div");
   sortingButtonsElement.className = "sort-button-container";
   const sortigAscentingButton = document.createElement("div");
   sortigAscentingButton.className = "sort-up-button-container";
   sortigAscentingButton.innerHTML =
-    '<i class="fa-solid fa-sort-up  sort-up-button sort-buttons" data-type="ascending" data-column = ' +
+    '<i class="fa-solid fa-square-caret-up  sort-up-button sort-buttons" data-type="ASC" data-column = ' +
     heading +
     "></i>";
   const sortigDescendingButton = document.createElement("div");
   sortigDescendingButton.className = "sort-down-button-container";
   sortigDescendingButton.innerHTML =
-    '<i class="fa-solid fa-sort-down  sort-down-button sort-buttons" data-type="descending" data-column =' +
+    '<i class="fa-solid fa-square-caret-down  sort-down-button sort-buttons" data-type="DSC" data-column =' +
     heading +
     "></i>";
+
+  if (app.state.sort.sortBy === heading) {
+    if (app.state.sort.sortType === "ASC") {
+      sortigAscentingButton.innerHTML =
+        '<i class="fa-regular fa-square-caret-up sort-up-button sort-buttons" data-type="DEFAULT"></i>';
+    } else {
+      sortigDescendingButton.innerHTML =
+        '<i class="fa-regular fa-square-caret-down sort-down-button sort-buttons" data-type="DEFAULT"></i>';
+    }
+  }
   sortingButtonsElement.appendChild(sortigAscentingButton);
   sortingButtonsElement.appendChild(sortigDescendingButton);
+
   return sortingButtonsElement;
 }
 
