@@ -26,6 +26,7 @@ async function handleFileSubmit(e, app) {
     app.state.headings = mappedHeadings;
     app.state.filteredData = data;
     app.state.filteredHeadings = mappedHeadings;
+    app.state.sortedData = data;
     app.setLoader(false);
     app.loaded = true;
     setPaginationParameters(app.state, 1, 50);

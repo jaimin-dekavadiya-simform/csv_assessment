@@ -7,7 +7,7 @@ function paginate(state) {
   const startIndex = (state.pagination.pageNumber - 1) * offset;
   const lastIndex = startIndex + offset;
   console.log(startIndex, offset);
-  state.paginatedData = state.filteredData.slice(startIndex, lastIndex);
+  state.paginatedData = state.sortedData.slice(startIndex, lastIndex);
 }
 
 function setPaginationParameters(state, pageNumber, offset) {
@@ -21,7 +21,8 @@ function setPaginationParameters(state, pageNumber, offset) {
     const pageNumber = Math.floor(startIndex / offset) + 1;
     state.pagination.pageNumber = pageNumber;
     console.log(state);
-    state.pagination.pages = Math.ceil(state.filteredData.length / offset);
+    console.log(state);
+    state.pagination.pages = Math.ceil(state.sortedData.length / offset);
   }
 }
 
