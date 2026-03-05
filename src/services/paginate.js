@@ -2,12 +2,12 @@ import App from "../main.js";
 /**
  * @param {App} app
  */
-function paginate(state) {
-  const offset = state.pagination.offset;
-  const startIndex = (state.pagination.pageNumber - 1) * offset;
+function paginate(app) {
+  const offset = app.state.pagination.offset;
+  const startIndex = (app.state.pagination.pageNumber - 1) * offset;
   const lastIndex = startIndex + offset;
   console.log(startIndex, offset);
-  state.paginatedData = state.sortedData.slice(startIndex, lastIndex);
+  app.state.paginatedData = app.state.sortedData.slice(startIndex, lastIndex);
 }
 
 function setPaginationParameters(state, pageNumber, offset) {
@@ -20,8 +20,6 @@ function setPaginationParameters(state, pageNumber, offset) {
     state.pagination.offset = offset;
     const pageNumber = Math.floor(startIndex / offset) + 1;
     state.pagination.pageNumber = pageNumber;
-    console.log(state);
-    console.log(state);
     state.pagination.pages = Math.ceil(state.sortedData.length / offset);
   }
 }

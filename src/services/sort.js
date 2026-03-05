@@ -1,6 +1,7 @@
 function sort(app) {
   const sortBy = app.state.sort.sortBy;
   if (!sortBy) {
+    app.state.sortedData = [...app.state.filteredData];
     return;
   }
   let sortType = app.state.sort.sortType;
@@ -20,8 +21,7 @@ function sort(app) {
     }
     return 0;
   });
-  console.log(data);
-  console.log(sortedData);
+
   app.state.sortedData = sortedData;
 }
 
