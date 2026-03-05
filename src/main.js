@@ -19,6 +19,10 @@ import { sort } from "./services/sort.js";
 import { filter } from "./services/filter.js";
 import { debounce } from "./utils/debounce.js";
 import { debouncedHandleSearch } from "./handlers/filterButtonHandler.js";
+import {
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from "./services/localStorage.js";
 
 class App {
   constructor() {
@@ -37,12 +41,16 @@ class App {
         prevSearchText: "",
       },
     };
+
     this.file = null;
     this.loadDom();
     this.attachHandlers();
     this.setLoader(false);
-    this.render();
+
     this.loaded = false;
+    this.state = getFromLocalStorage(this);
+    console.log(this.state);
+    this.render();
   }
   attachHandlers() {
     this.submitBtnElement.addEventListener("click", (e) => {
@@ -83,7 +91,28 @@ class App {
     this.dataTableHeaderElement =
       this.dataTableElement.getElementsByClassName("table-header")[0];
   }
-
+  clearFilters() {
+    this.state.pagination = {
+      pageNumber: 1,
+      offset: 50,
+      persistIndex: 0,
+    };
+    this.state.sort = {
+      sortBy: undefined,
+      sortType: "DEFAULT",
+    };
+    this.state.filter = {
+      searchText: "",
+      prevSearchText: "",
+    };
+    this.dataOptionElement.getElementsByClassName("page-offset")[0].value =
+      this.state.pagination.offset;
+    this.state.filter.prevSearchText = "";
+    this.state.filter.searchText = "";
+    this.dataOptionElement.getElementsByClassName("search-input")[0].value =
+      this.state.filter.searchText;
+    this.render();
+  }
   loadDom() {
     this.loaderElement = document.getElementsByClassName("file-loader")[0];
     this.fileInputElement =
@@ -100,7 +129,7 @@ class App {
       this.dataOptionElement.getElementsByClassName("page-numbers")[0];
   }
   handleError(e) {
-    console.log(e);
+    alert(e.message);
   }
   setLoader(loading) {
     if (loading) {
@@ -122,6 +151,7 @@ class App {
     this.renderData();
     this.loadDataDom();
     this.attachDataHandlers();
+    saveToLocalStorage(this.state);
   }
 
   applyFilters() {
@@ -149,7 +179,7 @@ class App {
             createHighlightedDataEntry(
               dataRow[heading.value],
               dataRow.matchedIndexes?.get(heading.value),
-              app.state.filter.searchText.length,
+              this.state.filter.searchText.length,
             ),
           );
         }

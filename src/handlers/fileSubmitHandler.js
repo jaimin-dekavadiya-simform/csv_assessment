@@ -29,9 +29,12 @@ async function handleFileSubmit(e, app) {
     app.state.sortedData = data;
     app.setLoader(false);
     app.loaded = true;
+
+    app.clearFilters();
     setPaginationParameters(app.state, 1, 50);
     app.render();
   } catch (e) {
+    console.log(e);
     app.handleError(e);
     app.setLoader(false);
   }
