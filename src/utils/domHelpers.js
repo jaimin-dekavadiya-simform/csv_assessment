@@ -67,7 +67,7 @@ function createHighlightedDataEntry(value, indexes, length) {
   }
 
   str = str + dataStringEntry.slice(i, dataStringEntry.length);
-  console.log(str);
+
   dataEntryElement.innerHTML = str;
   return dataEntryElement;
 }

@@ -10,7 +10,14 @@ function filter(app) {
     return;
   }
   app.state.filter.prevSearchText = searchText;
-  console.log("idhr");
+  if (searchText === "") {
+    app.state.filteredData = [...data];
+    app.state.sortedData = [...data];
+    app.state.sort.sortBy = undefined;
+    app.state.sort.sortType = "DEFAULT";
+    setPaginationParameters(app.state, 1, 50);
+    return;
+  }
   const filteredData = data.reduce((acc, row, index) => {
     let matched = false;
     const matchedIndexes = new Map();
