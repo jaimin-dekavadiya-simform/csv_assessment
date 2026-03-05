@@ -78,3 +78,6 @@ th {
 .sort-down-button {
   transform: translateY();
 }
+.highlighted-text {
+  background-color: yellow;
+}

@@ -36,8 +36,39 @@ function createHeaderentry(app, value) {
 }
 
 function createDataEntry(value) {
+  let dataStringEntry;
+  if (value instanceof Date) {
+    dataStringEntry = value.toLocaleDateString();
+  } else {
+    dataStringEntry = value.toString();
+  }
   const dataEntryElement = document.createElement("td");
-  dataEntryElement.innerHTML = value;
+  dataEntryElement.innerHTML = dataStringEntry;
+  return dataEntryElement;
+}
+function createHighlightedDataEntry(value, indexes, length) {
+  const dataEntryElement = document.createElement("td");
+  let dataStringEntry;
+  if (value instanceof Date) {
+    dataStringEntry = value.toLocaleDateString();
+  } else {
+    dataStringEntry = value.toString();
+  }
+  let str = "";
+  let i = 0;
+  for (const index of indexes) {
+    str = str + dataStringEntry.slice(i, index);
+    str =
+      str +
+      `<span class="highlighted-text">` +
+      dataStringEntry.slice(index, index + length) +
+      `</span>`;
+    i = index + length;
+  }
+
+  str = str + dataStringEntry.slice(i, dataStringEntry.length);
+
+  dataEntryElement.innerHTML = str;
   return dataEntryElement;
 }
 
@@ -79,4 +110,5 @@ export {
   createHeaderentry,
   createDataEntry,
   createSortingButtons,
+  createHighlightedDataEntry,
 };

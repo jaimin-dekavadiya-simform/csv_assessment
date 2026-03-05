@@ -12,9 +12,14 @@ import {
   createHeaderentry,
   createPageButton,
   createTableHeader,
+  createHighlightedDataEntry,
 } from "./utils/domHelpers.js";
 import { handleSortButtonClick } from "./handlers/sortingButtonHandler.js";
 import { sort } from "./services/sort.js";
+import { filter } from "./services/filter.js";
+import { debounce } from "./utils/debounce.js";
+import { debouncedHandleSearch } from "./handlers/filterButtonHandler.js";
+
 class App {
   constructor() {
     this.state = {
@@ -26,6 +31,10 @@ class App {
       sort: {
         sortBy: undefined,
         sortType: "DEFAULT",
+      },
+      filter: {
+        searchText: "",
+        prevSearchText: "",
       },
     };
     this.file = null;
@@ -58,6 +67,11 @@ class App {
       .getElementsByClassName("page-numbers")[0]
       .addEventListener("click", (e) => {
         handlePageNumberClick(this, e);
+      });
+    this.dataOptionElement
+      .getElementsByClassName("search-input")[0]
+      .addEventListener("input", (e) => {
+        debouncedHandleSearch(this, e);
       });
   }
   attachDataHandlers() {
@@ -101,8 +115,9 @@ class App {
       this.dataTableElement.innerHTML = "<p>Please Load the Data</p>";
       return;
     }
-    this.renderPageNumbers();
+
     this.applyFilters();
+    this.renderPageNumbers();
     this.renderHeaders();
     this.renderData();
     this.loadDataDom();
@@ -110,10 +125,9 @@ class App {
   }
 
   applyFilters() {
-    this.state.filteredData = this.state.data;
-    this.state.sortedData = this.state.data;
+    filter(this);
     sort(this);
-    paginate(this.state);
+    paginate(this);
   }
 
   renderHeaders() {
@@ -128,7 +142,17 @@ class App {
     for (const dataRow of this.state.paginatedData) {
       const tableRowElemnet = document.createElement("tr");
       for (const heading of this.state.headings) {
-        tableRowElemnet.appendChild(createDataEntry(dataRow[heading.value]));
+        if (dataRow.matchedIndexes?.get(heading.value) === undefined) {
+          tableRowElemnet.appendChild(createDataEntry(dataRow[heading.value]));
+        } else {
+          tableRowElemnet.appendChild(
+            createHighlightedDataEntry(
+              dataRow[heading.value],
+              dataRow.matchedIndexes?.get(heading.value),
+              app.state.filter.searchText.length,
+            ),
+          );
+        }
       }
       this.dataTableElement.appendChild(tableRowElemnet);
     }
@@ -136,8 +160,10 @@ class App {
 
   renderPageNumbers() {
     const pageNumbers = this.state.pagination.pages;
+    console.log("after" + pageNumbers);
     const pageNumber = this.state.pagination.pageNumber;
     this.pageNumbersElement.innerHTML = "";
+    console.log(pageNumbers);
     if (pageNumbers <= 7) {
       for (let i = 0; i < pageNumbers; i++) {
         this.pageNumbersElement.appendChild(
@@ -163,17 +189,11 @@ class App {
         }
       } else {
         this.pageNumbersElement.appendChild(createPageButton(1));
-
         this.pageNumbersElement.appendChild(createDots());
-
         this.pageNumbersElement.appendChild(createPageButton(pageNumber - 1));
-
         this.pageNumbersElement.appendChild(createPageButton(pageNumber, true));
-
         this.pageNumbersElement.appendChild(createPageButton(pageNumber + 1));
-
         this.pageNumbersElement.appendChild(createDots());
-
         this.pageNumbersElement.appendChild(createPageButton(pageNumbers));
       }
     }
