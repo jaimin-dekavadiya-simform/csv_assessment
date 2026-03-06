@@ -32,6 +32,7 @@ function handleSubmitRecord(app, e) {
       }
     });
     app.state.data.unshift(obj);
+    app.modified = true;
     app.addDialogElement.style.display = "none";
     app.render();
   } catch (e) {
