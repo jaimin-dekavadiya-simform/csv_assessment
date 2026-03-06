@@ -6,18 +6,16 @@ function filter(app) {
   const regEx = new RegExp(searchText, "gi");
   const data = app.state.data;
   const searchMappings = [];
+  if (searchText === "") {
+    app.state.filteredData = [...data];
+
+    return;
+  }
   if (searchText === prevSearchText) {
     return;
   }
   app.state.filter.prevSearchText = searchText;
-  if (searchText === "") {
-    app.state.filteredData = [...data];
-    app.state.sortedData = [...data];
-    app.state.sort.sortBy = undefined;
-    app.state.sort.sortType = "DEFAULT";
-    setPaginationParameters(app.state, 1, 50);
-    return;
-  }
+
   const filteredData = data.reduce((acc, row, index) => {
     let matched = false;
     const matchedIndexes = new Map();
@@ -52,7 +50,9 @@ function filter(app) {
   app.state.sortedData = filteredData;
   app.state.sort.sortBy = undefined;
   app.state.sort.sortType = "DEFAULT";
+  app.dataOptionElement.getElementsByClassName("page-offset")[0].value = 50;
   setPaginationParameters(app.state, 1, 50);
+
   console.log(app.state.sortedData);
 }
 

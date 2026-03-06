@@ -13,6 +13,7 @@ import {
   createPageButton,
   createTableHeader,
   createHighlightedDataEntry,
+  createFormElement,
 } from "./utils/domHelpers.js";
 import { handleSortButtonClick } from "./handlers/sortingButtonHandler.js";
 import { sort } from "./services/sort.js";
@@ -28,6 +29,11 @@ import {
   handleCloseRecordClick,
   handleRecordClick,
 } from "./handlers/recordViewhandler.js";
+import {
+  handleAddButtonClick,
+  handleCloseAddDialogClick,
+  handleSubmitRecord,
+} from "./handlers/addNewRecordHandler.js";
 
 class App {
   constructor() {
@@ -48,12 +54,15 @@ class App {
     };
 
     this.file = null;
+    this.loaded = false;
     this.loadDom();
+    const state = getFromLocalStorage(this);
+    if (this.loaded) {
+      this.state = state;
+      createFormElement(this);
+    }
     this.attachHandlers();
     this.setLoader(false);
-
-    this.loaded = false;
-    this.state = getFromLocalStorage(this);
     console.log(this.state);
     this.render();
   }
@@ -98,6 +107,22 @@ class App {
       .getElementsByClassName("close-btn")[0]
       .addEventListener("click", (e) => {
         handleCloseRecordClick(this, e);
+      });
+    this.dataOptionElement
+      .getElementsByClassName("add-btn")[0]
+      .addEventListener("click", (e) => {
+        handleAddButtonClick(this, e);
+      });
+    this.addDialogElement
+      .getElementsByClassName("close-btn")[0]
+      .addEventListener("click", (e) => {
+        handleCloseAddDialogClick(this, e);
+      });
+
+    this.addDialogElement
+      .getElementsByClassName("add-submit-btn")[0]
+      .addEventListener("click", (e) => {
+        handleSubmitRecord(this, e);
       });
   }
   attachDataHandlers() {
@@ -149,6 +174,8 @@ class App {
     this.recordDialogueElement = document.getElementsByClassName(
       "record-dialog-overlay",
     )[0];
+    this.addDialogElement =
+      document.getElementsByClassName("add-dialog-overlay")[0];
   }
   handleError(e) {
     alert(e.message);

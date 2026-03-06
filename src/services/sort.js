@@ -6,7 +6,7 @@ function sort(app) {
   }
   let sortType = app.state.sort.sortType;
   if (!sortType) {
-    sortType = "ASC";
+    sortType = "DEFAULT";
   }
   const data = app.state.filteredData;
   const sortedData = [...data].sort((a, b) => {

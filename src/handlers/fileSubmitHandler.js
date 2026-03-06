@@ -3,6 +3,7 @@ import AppError from "../error/appError.js";
 import { loadCsv } from "../services/loadCsv.js";
 import { parseCsv } from "../services/parseCsv.js";
 import { setPaginationParameters } from "../services/paginate.js";
+import { createFormElement } from "../utils/domHelpers.js";
 // async function sleep(ms) {
 //   return new Promise((resolve) => {
 //     setTimeout(() => {
@@ -32,6 +33,8 @@ async function handleFileSubmit(e, app) {
 
     app.clearFilters();
     setPaginationParameters(app.state, 1, 50);
+    createFormElement(app);
+
     app.render();
   } catch (e) {
     console.log(e);

@@ -1,6 +1,9 @@
 import { createRecordViewer } from "../utils/domHelpers.js";
 
 function handleRecordClick(app, e) {
+  if (e.target.closest(".data-row")?.firstElementChild.tagName != "TD") {
+    return;
+  }
   app.recordDialogueElement.style.display = "flex";
   const index = e.target.closest(".data-row").dataset.index;
   const dataRow = app.state.filteredData[Number(index)];
