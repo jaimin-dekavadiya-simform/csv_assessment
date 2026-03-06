@@ -39,7 +39,7 @@ function filter(app) {
       for (const match of matches) {
         indexes.push(match.index);
       }
-      matchedIndexes.set(entry, indexes);
+      matchedIndexes[entry] = indexes;
     }
     if (matched) {
       const newRow = { ...row };

@@ -23,6 +23,7 @@ import {
   getFromLocalStorage,
   saveToLocalStorage,
 } from "./services/localStorage.js";
+import { handleFileExport } from "./handlers/fileExporthandler.js";
 
 class App {
   constructor() {
@@ -80,6 +81,11 @@ class App {
       .getElementsByClassName("search-input")[0]
       .addEventListener("input", (e) => {
         debouncedHandleSearch(this, e);
+      });
+    document
+      .getElementsByClassName("export-btn")[0]
+      .addEventListener("click", (e) => {
+        handleFileExport(this, e);
       });
   }
   attachDataHandlers() {
@@ -172,13 +178,13 @@ class App {
     for (const dataRow of this.state.paginatedData) {
       const tableRowElemnet = document.createElement("tr");
       for (const heading of this.state.headings) {
-        if (dataRow.matchedIndexes?.get(heading.value) === undefined) {
+        if (!dataRow.matchedIndexes) {
           tableRowElemnet.appendChild(createDataEntry(dataRow[heading.value]));
         } else {
           tableRowElemnet.appendChild(
             createHighlightedDataEntry(
               dataRow[heading.value],
-              dataRow.matchedIndexes?.get(heading.value),
+              dataRow.matchedIndexes[heading.value],
               this.state.filter.searchText.length,
             ),
           );
