@@ -23,7 +23,7 @@ function createTableHeader() {
 function createHeaderentry(app, value) {
   const headingEntryElement = document.createElement("th");
   const headingContainer = document.createElement("div");
-  headingContainer.className = "header-cell-container";
+  headingContainer.className = "th-content";
 
   const sortingButtons = createSortingButtons(app, value);
   const headerText = document.createElement("span");
@@ -56,7 +56,8 @@ function createHighlightedDataEntry(value, indexes, length) {
   }
   let str = "";
   let i = 0;
-  for (const index of indexes) {
+  for (const ind in indexes) {
+    let index = indexes[ind];
     str = str + dataStringEntry.slice(i, index);
     str =
       str +

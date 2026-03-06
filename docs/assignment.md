@@ -84,12 +84,12 @@ The application should:
 2. Row selection with bulk delete
 3. Record detail view (modal / side panel)
 4. Add new record form with validation
-5. Export filtered/selected data (CSV or JSON)
-6. Summary statistics (counts, averages)
-7. Persist UI state using `localStorage`
-8. Error handling for invalid CSV in
-9. Reset filters & sorting
-10. Highlight searched text in results
+   process 5. Export filtered/selected data (CSV or JSON)
+5. Summary statistics (counts, averages)
+   done 7. Persist UI state using `localStorage`
+   done 8. Error handling for invalid CSV in
+   done 9. Reset filters & sorting
+   done 10. Highlight searched text in results
 
 ---
 
