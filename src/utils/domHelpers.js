@@ -108,6 +108,9 @@ function createRecordViewer(dataRow) {
   const recordContent = document.createElement("div");
   recordContent.className = "record-content";
   for (let key in dataRow) {
+    if (key === "matchedIndexes") {
+      continue;
+    }
     const recordRow = document.createElement("div");
     recordRow.className = "record-row";
     const recordKey = document.createElement("span");
