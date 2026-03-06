@@ -21,6 +21,7 @@ function setPaginationParameters(state, pageNumber, offset) {
     const pageNumber = Math.floor(startIndex / offset) + 1;
     state.pagination.pageNumber = pageNumber;
     state.pagination.pages = Math.ceil(state.sortedData.length / offset);
+    document.getElementsByClassName("page-offset")[0].value = offset;
   }
 }
 

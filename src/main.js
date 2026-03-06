@@ -52,7 +52,7 @@ class App {
         prevSearchText: "",
       },
     };
-
+    this.modified = false;
     this.file = null;
     this.loaded = false;
     this.loadDom();
