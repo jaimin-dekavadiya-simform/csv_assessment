@@ -129,6 +129,49 @@ function createRecordViewer(dataRow) {
   return recordContent;
 }
 
+function createFormElement(app) {
+  const headings = app.state.headings;
+  const addContent = document.createElement("div");
+  addContent.className = "add-content";
+  for (const heading of headings) {
+    const addRow = document.createElement("div");
+    addRow.className = "add-row";
+    const addKey = document.createElement("span");
+    addKey.className = "add-key";
+    addKey.innerHTML = heading.value;
+    const addValue = document.createElement("span");
+    addValue.className = "add-value";
+    switch (heading.type) {
+      case "number":
+        addValue.innerHTML = `<Input type="number" class="form-data"></Input>`;
+        break;
+      case "string":
+        addValue.innerHTML = `<Input type="text" class="form-data"></Input>`;
+        break;
+      case "date":
+        addValue.innerHTML = `<Input type="date" class="form-data"></Input>`;
+        break;
+      case "boolean":
+        addValue.innerHTML = `<Input type="checkbox" class="form-data"></Input>`;
+        break;
+    }
+    addRow.appendChild(addKey);
+    addRow.appendChild(addValue);
+    addContent.appendChild(addRow);
+  }
+
+  const existingElement =
+    app.addDialogElement.getElementsByClassName("add-content")[0];
+  if (existingElement) {
+    app.addDialogElement.firstElementChild.removeChild(existingElement);
+  }
+
+  app.addDialogElement.firstElementChild.insertBefore(
+    addContent,
+    app.addDialogElement.firstElementChild.lastElementChild,
+  );
+}
+
 export {
   createPageButton,
   createDots,
@@ -138,4 +181,5 @@ export {
   createSortingButtons,
   createHighlightedDataEntry,
   createRecordViewer,
+  createFormElement,
 };

@@ -1,12 +1,15 @@
 function saveToLocalStorage(state) {
-  localStorage.setItem("csv_pars", JSON.stringify(state));
+  localStorage.setItem("csv_ex", JSON.stringify(state));
   console.log("saved", state);
 }
 function getFromLocalStorage(app) {
-  const state = JSON.parse(localStorage.getItem("csv_pars"));
-  if (state) {
-    app.loaded = true;
+  const state = JSON.parse(localStorage.getItem("csv_ex"));
+  console.log(state);
+  if (state === null) {
+    app.loaded = false;
+    return;
   }
+  app.loaded = true;
   app.dataOptionElement.getElementsByClassName("page-offset")[0].value =
     state.pagination.offset;
 

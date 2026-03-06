@@ -166,7 +166,8 @@ main {
   color: #666;
 }
 /* Overlay */
-.record-dialog-overlay {
+.record-dialog-overlay,
+.add-dialog-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -183,7 +184,8 @@ main {
 }
 
 /* Dialog */
-.record-dialog {
+.record-dialog,
+.add-dialog {
   background: white;
   width: 500px;
   max-height: 80vh;
@@ -196,7 +198,8 @@ main {
 }
 
 /* Header */
-.record-header {
+.record-header,
+.add-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -207,7 +210,8 @@ main {
   background: #f7f7f7;
 }
 
-.record-header h3 {
+.record-header h3,
+.addheader h3 {
   font-size: 16px;
 }
 
@@ -220,13 +224,15 @@ main {
 }
 
 /* Content */
-.record-content {
+.record-content,
+.add-content {
   padding: 12px;
   overflow-y: auto;
 }
 
 /* Record rows */
-.record-row {
+.record-row,
+.add-row {
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 10px;
@@ -235,15 +241,27 @@ main {
   border-bottom: 1px solid #eee;
 }
 
-.record-key {
+.record-key,
+.add-key {
   font-weight: 600;
   color: #333;
 }
 
-.record-value {
+.record-value,
+.add-value {
   color: #555;
   word-break: break-word;
 }
-.record-dialog-overlay {
+.record-dialog-overlay,
+.add-dialog-overlay {
   display: none;
+}
+.add-btn {
+  margin-right: 15px;
+}
+
+.add-submit-btn {
+  width: 200px;
+  margin: auto;
+  margin-bottom: 5px;
 }
