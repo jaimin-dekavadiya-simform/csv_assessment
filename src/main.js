@@ -24,6 +24,10 @@ import {
   saveToLocalStorage,
 } from "./services/localStorage.js";
 import { handleFileExport } from "./handlers/fileExporthandler.js";
+import {
+  handleCloseRecordClick,
+  handleRecordClick,
+} from "./handlers/recordViewhandler.js";
 
 class App {
   constructor() {
@@ -87,6 +91,14 @@ class App {
       .addEventListener("click", (e) => {
         handleFileExport(this, e);
       });
+    this.dataTableElement.addEventListener("click", (e) => {
+      handleRecordClick(this, e);
+    });
+    this.recordDialogueElement
+      .getElementsByClassName("close-btn")[0]
+      .addEventListener("click", (e) => {
+        handleCloseRecordClick(this, e);
+      });
   }
   attachDataHandlers() {
     this.dataTableHeaderElement.addEventListener("click", (e) => {
@@ -131,8 +143,12 @@ class App {
     this.dataTableElement = document
       .getElementsByClassName("data-container")[0]
       .getElementsByClassName("data-table")[0];
+
     this.pageNumbersElement =
       this.dataOptionElement.getElementsByClassName("page-numbers")[0];
+    this.recordDialogueElement = document.getElementsByClassName(
+      "record-dialog-overlay",
+    )[0];
   }
   handleError(e) {
     alert(e.message);
@@ -175,8 +191,11 @@ class App {
   }
 
   renderData() {
-    for (const dataRow of this.state.paginatedData) {
+    for (const index in this.state.paginatedData) {
+      const dataRow = this.state.paginatedData[index];
       const tableRowElemnet = document.createElement("tr");
+      tableRowElemnet.className = "data-row";
+      tableRowElemnet.setAttribute("data-index", index);
       for (const heading of this.state.headings) {
         if (!dataRow.matchedIndexes) {
           tableRowElemnet.appendChild(createDataEntry(dataRow[heading.value]));
@@ -234,6 +253,8 @@ class App {
       }
     }
   }
+  renderRecordView() {}
+  closeRecordView() {}
 }
 
 const app = new App();

@@ -104,6 +104,28 @@ function createSortingButtons(app, heading) {
   return sortingButtonsElement;
 }
 
+function createRecordViewer(dataRow) {
+  const recordContent = document.createElement("div");
+  recordContent.className = "record-content";
+  for (let key in dataRow) {
+    const recordRow = document.createElement("div");
+    recordRow.className = "record-row";
+    const recordKey = document.createElement("span");
+    recordKey.className = "record-key";
+    recordKey.innerHTML = key;
+    const recordValue = document.createElement("span");
+    recordValue.className = "record-value";
+    recordValue.innerHTML =
+      dataRow[key] instanceof Date
+        ? dataRow[key].toLocaleDateString()
+        : dataRow[key].toString();
+    recordRow.appendChild(recordKey);
+    recordRow.appendChild(recordValue);
+    recordContent.appendChild(recordRow);
+  }
+  return recordContent;
+}
+
 export {
   createPageButton,
   createDots,
@@ -112,4 +134,5 @@ export {
   createDataEntry,
   createSortingButtons,
   createHighlightedDataEntry,
+  createRecordViewer,
 };

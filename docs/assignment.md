@@ -82,10 +82,10 @@ The application should:
 
 1. Column visibility toggle
 2. Row selection with bulk delete
-3. Record detail view (modal / side panel)
-4. Add new record form with validation
-   process 5. Export filtered/selected data (CSV or JSON)
-5. Summary statistics (counts, averages)
+   in process 3. Record detail view (modal / side panel)
+3. Add new record form with validation
+   done 5. Export filtered/selected data (CSV or JSON)
+4. Summary statistics (counts, averages)
    done 7. Persist UI state using `localStorage`
    done 8. Error handling for invalid CSV in
    done 9. Reset filters & sorting
