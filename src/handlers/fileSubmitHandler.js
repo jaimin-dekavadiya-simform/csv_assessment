@@ -4,13 +4,13 @@ import { loadCsv } from "../services/loadCsv.js";
 import { parseCsv } from "../services/parseCsv.js";
 import { setPaginationParameters } from "../services/paginate.js";
 import { createFormElement } from "../utils/domHelpers.js";
-// async function sleep(ms) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve();
-//     }, ms);
-//   });
-// }
+async function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+}
 /**
  * @param {Event} event
  * @param {App} app
@@ -28,6 +28,7 @@ async function handleFileSubmit(e, app) {
     app.state.filteredData = data;
     app.state.filteredHeadings = mappedHeadings;
     app.state.sortedData = data;
+    //sleep(500);
     app.setLoader(false);
     app.loaded = true;
 

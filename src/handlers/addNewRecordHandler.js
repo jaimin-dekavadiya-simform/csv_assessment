@@ -14,7 +14,7 @@ function handleSubmitRecord(app, e) {
     const obj = {};
     inputElements.forEach((data, index) => {
       if (data === "") {
-        throw new Error("Empty values not allowed");
+        throw new Error("Invalid Input");
       }
       switch (headings[index].type) {
         case "number":
